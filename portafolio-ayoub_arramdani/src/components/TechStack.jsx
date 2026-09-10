@@ -1,5 +1,7 @@
 import Reveal from './Reveal'
+import SectionHeading from './SectionHeading'
 import TechIcon from './TechIcon'
+import useSpotlight from '../hooks/useSpotlight'
 
 const CATEGORIES = [
   {
@@ -43,17 +45,20 @@ const CATEGORIES = [
 ]
 
 function TechStack() {
+  const onSpotlight = useSpotlight()
+
   return (
     <section id="tecnologias" className="tech-stack">
-      <Reveal as="div" className="section-heading">
-        <span className="section-heading__index">04</span>
-        <h2>Tecnologías</h2>
-      </Reveal>
+      <SectionHeading index="04" title="Tecnologías" subtitle="Con lo que trabajo a diario" />
 
       <div className="tech-categories">
         {CATEGORIES.map((category, ci) => (
           <Reveal as="div" key={category.name} className="tech-category" delay={ci * 80}>
-            <h3 className="tech-category__title">{category.name}</h3>
+            <h3 className="tech-category__title">
+              {category.name}
+              <span className="tech-category__count">{String(category.items.length).padStart(2, '0')}</span>
+            </h3>
+
             <div className="tech-grid">
               {category.items.map((tech, i) => (
                 <Reveal
@@ -65,9 +70,13 @@ function TechStack() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Ver documentación de ${tech.name}`}
+                  onMouseMove={onSpotlight}
                 >
                   <TechIcon name={tech.name} className="tech-card__icon" />
                   <span className="tech-card__name">{tech.name}</span>
+                  <span className="tech-card__arrow" aria-hidden="true">
+                    ↗
+                  </span>
                 </Reveal>
               ))}
             </div>

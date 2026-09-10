@@ -1,5 +1,7 @@
 import Reveal from './Reveal'
+import SectionHeading from './SectionHeading'
 import TechIcon from './TechIcon'
+import useSpotlight from '../hooks/useSpotlight'
 import mercanzaLogo from '../assets/mercanza-logo.png'
 
 const EXPERIENCE = [
@@ -47,50 +49,57 @@ const EXPERIENCE = [
 ]
 
 function Experience() {
+  const onSpotlight = useSpotlight()
+
   return (
     <section id="experiencia" className="experience">
-      <Reveal as="div" className="section-heading">
-        <span className="section-heading__index">03</span>
-        <h2>Experiencia</h2>
-      </Reveal>
+      <SectionHeading index="03" title="Experiencia" subtitle="Dónde he trabajado y en qué" />
 
-      <div className="experience__list">
+      <ol className="timeline">
         {EXPERIENCE.map((job, i) => (
-          <Reveal as="article" key={job.role} className="experience-card" delay={i * 100}>
-            <div className="experience-card__header">
-              <div className="experience-card__title">
-                <img src={job.logo} alt={`Logo de ${job.company}`} className="experience-card__logo" />
-                <div>
-                  <h3>{job.role}</h3>
-                  <p className="experience-card__company">{job.company}</p>
+          <Reveal as="li" key={job.role} className="timeline__item" delay={i * 100}>
+            <span className="timeline__marker" aria-hidden="true" />
+
+            <article className="experience-card" onMouseMove={onSpotlight}>
+              <div className="experience-card__header">
+                <div className="experience-card__title">
+                  <img src={job.logo} alt={`Logo de ${job.company}`} className="experience-card__logo" />
+                  <div>
+                    <h3>{job.role}</h3>
+                    <p className="experience-card__company">{job.company}</p>
+                    <p className="experience-card__location">{job.location}</p>
+                  </div>
                 </div>
+                <p className="experience-card__period">{job.period}</p>
               </div>
-              <p className="experience-card__period">{job.period}</p>
-            </div>
-            <p className="experience-card__location">{job.location}</p>
-            <p className="experience-card__desc">{job.desc}</p>
-            <div className="experience-card__modules">
-              {job.modules.map((mod) => (
-                <div key={mod.title} className="experience-module">
-                  <h4>{mod.title}</h4>
-                  <ul className="experience-card__highlights">
-                    {mod.points.map((point) => (
-                      <li key={point}>{point}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-            <ul className="experience-card__tags">
-              {job.tags.map((tag) => (
-                <li key={tag} title={tag}>
-                  <TechIcon name={tag} className="experience-card__tag-icon" />
-                </li>
-              ))}
-            </ul>
+
+              <p className="experience-card__desc">{job.desc}</p>
+
+              <div className="experience-card__modules">
+                {job.modules.map((mod) => (
+                  <div key={mod.title} className="experience-module">
+                    <h4>{mod.title}</h4>
+                    <ul className="experience-card__highlights">
+                      {mod.points.map((point) => (
+                        <li key={point}>{point}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+
+              <ul className="experience-card__tags chip-row">
+                {job.tags.map((tag) => (
+                  <li key={tag} className="chip">
+                    <TechIcon name={tag} className="chip__icon" />
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            </article>
           </Reveal>
         ))}
-      </div>
+      </ol>
     </section>
   )
 }
