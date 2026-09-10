@@ -1,5 +1,5 @@
 import bytestoreCover from '../assets/bytestore-cover.png'
-import gofightCover from '../assets/gofight-cover.png'
+import gofightLogo from '../assets/GF Boxing Pulse Logo.png'
 import Reveal from './Reveal'
 import SectionHeading from './SectionHeading'
 import TechIcon from './TechIcon'
@@ -7,22 +7,51 @@ import useSpotlight from '../hooks/useSpotlight'
 
 const PROJECTS = [
   {
-    title: 'Proyecto 1',
-    desc: 'Descripción breve del proyecto. Sustituye este texto por tu propio proyecto.',
-    tags: ['React', 'CSS'],
-    links: [{ label: 'Ver proyecto', url: '#' }],
+    title: 'Lampreas Violeta',
+    kind: 'App de escritorio · Proyecto DAM',
+    year: '2025',
+    // Sin captura disponible: se muestra el icono de la tecnología principal.
+    shot: 'mark',
+    markIcon: 'Java',
+    tint: 'rgba(139, 92, 246, 0.45)',
+    desc: 'Sistema de gestión de una distribuidora con interfaz de escritorio en JavaFX: clientes con sus detalles, comerciales y repartidores. Primer proyecto del ciclo DAM, centrado en el acceso a datos con patrón DAO y doble persistencia.',
+    features: [
+      'CRUD completo sobre PostgreSQL vía JDBC',
+      'Patrón DAO y DAO Factory para aislar el acceso a datos',
+      'Doble persistencia: base de datos y JSON con Jackson',
+      'Vista JavaFX con TableView, formulario y búsqueda',
+    ],
+    tags: ['Java', 'PostgreSQL'],
+    links: [{ label: 'Ver repositorio', url: 'https://github.com/Ayoubito04/Lampreas-Violeta' }],
   },
   {
     title: 'GoFight',
     kind: 'App móvil · Proyecto grupal',
     year: '2026',
-    // La captura ya incluye el marco del teléfono: se muestra entera, sin recortar.
-    shot: 'phone',
-    tint: 'rgba(225, 29, 47, 0.45)',
+    badge: 'TFG · Trabajo final de grado DAM',
+    // Logo de la app presentado como icono, sobre el halo rojo de su marca.
+    shot: 'logo',
+    tint: 'rgba(225, 29, 47, 0.5)',
     desc: 'App móvil de fitness para boxeo y deportes de contacto: rutinas de entrenamiento, gamificación con rachas y puntos, ranking de usuarios y panel de administración. Proyecto grupal con React Native.',
-    features: ['Rachas y puntos tipo Duolingo', 'API REST con +20 endpoints protegidos', 'Panel de administración'],
-    tags: ['React Native', 'Node.js', 'Express', 'PostgreSQL', 'Prisma'],
-    cover: gofightCover,
+    features: [
+      'Rachas y puntos tipo Duolingo',
+      'Inicio de sesión con Google',
+      'API REST con +20 endpoints protegidos',
+      'Panel de administración',
+      'API desplegada en Render y APK distribuida con Expo Go',
+    ],
+    tags: [
+      'React Native',
+      'Expo Go',
+      'Node.js',
+      'Express',
+      'Supabase',
+      'PostgreSQL',
+      'Prisma',
+      'Google OAuth',
+      'Render',
+    ],
+    cover: gofightLogo,
     links: [
       { label: 'Ver portafolio', url: 'https://proyecto2-react-8ed4-two.vercel.app/' },
       { label: 'Repo GitHub', url: 'https://github.com/Ayoubito04/GoFight' },
@@ -95,7 +124,16 @@ function ProjectShowcase({ project, index, flip, onSpotlight }) {
               <span className="shot__url">{hostnameOf(primaryLink.url)}</span>
             </span>
           )}
-          <img src={project.cover} alt={`Captura de ${project.title}`} loading="lazy" />
+
+          {project.shot === 'mark' ? (
+            <TechIcon name={project.markIcon} className="shot__mark" />
+          ) : (
+            <img
+              src={project.cover}
+              alt={project.shot === 'logo' ? `Logo de ${project.title}` : `Captura de ${project.title}`}
+              loading="lazy"
+            />
+          )}
         </a>
       </div>
 
@@ -157,17 +195,12 @@ function ProjectShowcase({ project, index, flip, onSpotlight }) {
 function Projects() {
   const onSpotlight = useSpotlight()
 
-  // Los proyectos sin portada se muestran al final como hueco pendiente,
-  // para que no ocupen una fila destacada entre los que sí están terminados.
-  const showcased = PROJECTS.filter((project) => project.cover)
-  const pending = PROJECTS.filter((project) => !project.cover)
-
   return (
     <section id="proyectos" className="projects">
       <SectionHeading index="05" title="Proyectos" subtitle="Lo que he construido de principio a fin" />
 
       <div className="projects__list">
-        {showcased.map((project, i) => (
+        {PROJECTS.map((project, i) => (
           <ProjectShowcase
             key={project.title}
             project={project}
@@ -177,22 +210,6 @@ function Projects() {
           />
         ))}
       </div>
-
-      {pending.length > 0 && (
-        <div className="projects__pending">
-          {pending.map((project, i) => (
-            <Reveal as="article" key={project.title} className="project-slot" delay={i * 90}>
-              <span className="project-slot__plus" aria-hidden="true">
-                +
-              </span>
-              <div>
-                <h3>{project.title}</h3>
-                <p>{project.desc}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      )}
     </section>
   )
 }

@@ -1208,67 +1208,100 @@ section {
 .tech-categories {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+}
+
+/* Cabecera a la izquierda y rejilla a la derecha: da ritmo editorial
+   en lugar de cuatro bloques apilados iguales. */
+.tech-category {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: clamp(20px, 3vw, 44px);
+  align-items: start;
+  padding-block: clamp(26px, 3vw, 38px);
+  border-top: 1px solid var(--border);
+}
+.tech-category:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.tech-category__head {
+  position: relative;
+  padding-right: 34px;
 }
 .tech-category__title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.tech-category__note {
+  margin-top: 4px;
+  font-size: var(--fs-xs);
+  color: var(--text-dim);
+}
+.tech-category__count {
+  position: absolute;
+  top: -2px;
+  right: 0;
   font-family: var(--mono);
   font-size: var(--fs-xs);
   font-weight: 700;
   color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  margin-bottom: 18px;
-}
-.tech-category__title::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, var(--border), transparent);
-}
-.tech-category__count {
-  order: -1;
-  color: var(--text-dim);
+  opacity: 0.55;
 }
 
 .tech-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
 }
+
+/* Tarjeta horizontal: icono, nombre y para qué sirve. */
 .tech-card {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 12px;
-  padding: 26px 12px;
-  text-align: center;
+  padding: 13px 14px;
+  border-radius: var(--radius-sm);
 }
 .tech-card__icon {
-  width: 34px;
-  height: 34px;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
   transition: transform 0.4s var(--ease);
 }
 .tech-card:hover .tech-card__icon {
-  transform: scale(1.14) translateY(-2px);
+  transform: scale(1.16);
+}
+.tech-card__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
 }
 .tech-card__name {
-  font-size: var(--fs-xs);
-  color: var(--text-dim);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text-soft);
   transition: color 0.3s var(--ease);
 }
 .tech-card:hover .tech-card__name {
   color: var(--text);
 }
+.tech-card__desc {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .tech-card__arrow {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  font-size: 12px;
-  color: var(--accent);
+  margin-left: auto;
+  padding-left: 4px;
+  font-size: 11px;
+  color: rgb(var(--brand));
   opacity: 0;
   transform: translate(-3px, 3px);
   transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
@@ -1278,14 +1311,30 @@ section {
   transform: none;
 }
 
-@media (max-width: 900px) {
-  .tech-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+/* El hover toma el color de marca de cada tecnología (--brand, en r,g,b). */
+.tech-card::before {
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(var(--brand), 0.16), transparent 62%);
+}
+.tech-card:hover {
+  border-color: rgba(var(--brand), 0.55);
+  box-shadow: 0 16px 34px -22px rgba(var(--brand), 0.5);
+}
+
+@media (max-width: 760px) {
+  .tech-category {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .tech-category__head {
+    padding-right: 0;
+  }
+  .tech-category__count {
+    top: 2px;
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 420px) {
   .tech-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1353,19 +1402,51 @@ section {
   display: block;
 }
 
-/* La captura de GoFight ya trae el marco del móvil: se muestra entera. */
-.shot--phone {
-  transform: rotate(-3deg);
+/* Baldosa cuadrada tipo icono de aplicación: logo propio o marca de tecnología. */
+.shot--logo,
+.shot--mark {
+  width: min(300px, 74%);
+  aspect-ratio: 1;
+  border-radius: 28%;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 30px 60px -26px rgba(0, 0, 0, 0.9);
 }
-.shot--phone img {
-  width: auto;
+.shot--logo::after,
+.shot--mark::after {
+  /* brillo diagonal para que la baldosa no parezca un recorte plano */
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.14), transparent 46%);
+  pointer-events: none;
+}
+.project-showcase:hover .shot--logo,
+.project-showcase:hover .shot--mark {
+  transform: translateY(-6px) scale(1.03);
+}
+
+.shot--logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Sin captura: icono de la tecnología principal centrado en la baldosa. */
+.shot--mark {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.015));
+}
+.shot__mark {
+  width: 40%;
   height: auto;
-  max-height: min(400px, 48vh);
-  max-width: 100%;
-  filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.65));
+  opacity: 0.9;
+  transition: transform 0.55s var(--ease);
 }
-.project-showcase:hover .shot--phone {
-  transform: rotate(0deg) translateY(-6px);
+.project-showcase:hover .shot__mark {
+  transform: scale(1.06);
 }
 
 /* La captura de Byte Store es una web sin cromo: se enmarca en una ventana. */
@@ -1520,45 +1601,6 @@ section {
   color: var(--accent);
 }
 
-/* --- Hueco para el próximo proyecto --- */
-.projects__pending {
-  margin-top: clamp(20px, 2.5vw, 32px);
-}
-.project-slot {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 26px 28px;
-  border: 1px dashed var(--border-strong);
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.012);
-  transition: border-color 0.4s var(--ease);
-}
-.project-slot:hover {
-  border-color: rgba(215, 255, 63, 0.4);
-}
-.project-slot__plus {
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  width: 46px;
-  height: 46px;
-  border: 1px dashed var(--border-strong);
-  border-radius: 14px;
-  font-family: var(--display);
-  font-size: 22px;
-  color: var(--text-dim);
-}
-.project-slot h3 {
-  font-size: var(--fs-h3);
-  color: var(--text-soft);
-}
-.project-slot p {
-  margin-top: 2px;
-  font-size: var(--fs-sm);
-  color: var(--text-dim);
-}
-
 @media (max-width: 900px) {
   .project-showcase {
     grid-template-columns: 1fr;
@@ -1569,18 +1611,14 @@ section {
     border: none;
     border-bottom: 1px solid var(--border);
   }
-  .shot--phone img {
-    max-height: min(340px, 46vh);
+  .shot--logo,
+  .shot--mark {
+    width: min(240px, 62%);
   }
 }
 @media (max-width: 520px) {
   .project-showcase__actions .btn {
     width: 100%;
-  }
-  .project-slot {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
   }
 }
 
@@ -1589,21 +1627,83 @@ section {
    ========================================================================== */
 .contact__grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
   gap: clamp(28px, 4vw, 56px);
   align-items: start;
 }
 .contact__lead {
   font-family: var(--display);
-  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.2rem);
+  font-size: clamp(1.1rem, 0.95rem + 0.8vw, 1.5rem);
   font-weight: 500;
-  line-height: 1.45;
+  line-height: 1.4;
   color: var(--text);
 }
+.contact__note {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: var(--fs-sm);
+  color: var(--text-dim);
+}
+/* Bloque principal de email: dirección grande + copiar + Gmail */
+.contact-email {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px;
+  border: 1px solid rgba(215, 255, 63, 0.28);
+  border-radius: var(--radius);
+  background: linear-gradient(160deg, var(--accent-dim), rgba(255, 255, 255, 0.015));
+  transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.contact-email:hover {
+  border-color: var(--accent);
+  box-shadow: 0 24px 50px -34px var(--accent-glow);
+}
+.contact-email__address {
+  font-family: var(--mono);
+  font-size: clamp(0.95rem, 0.8rem + 0.7vw, 1.2rem);
+  font-weight: 500;
+  color: var(--accent);
+  word-break: break-all;
+  transition: opacity 0.25s var(--ease);
+}
+.contact-email__address:hover {
+  opacity: 0.75;
+}
+.contact-email__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+.contact-email__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: var(--fs-xs);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.25s var(--ease), color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.contact-email__btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
 .contact__channels {
   display: grid;
   gap: 10px;
-  margin-top: 26px;
+  margin-top: 12px;
 }
 .contact-channel {
   display: flex;
@@ -1628,77 +1728,6 @@ section {
 }
 a.contact-channel__value:hover {
   color: var(--accent);
-}
-
-.contact__form {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: clamp(22px, 3vw, 32px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  background: var(--grad-surface);
-  backdrop-filter: blur(6px);
-}
-
-.field {
-  position: relative;
-}
-.field input,
-.field textarea {
-  width: 100%;
-  padding: 24px 16px 10px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: rgba(0, 0, 0, 0.28);
-  color: var(--text);
-  font: inherit;
-  font-size: var(--fs-sm);
-  resize: vertical;
-  transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
-}
-.field textarea {
-  min-height: 130px;
-}
-.field label {
-  position: absolute;
-  left: 17px;
-  top: 15px;
-  font-size: var(--fs-sm);
-  color: var(--text-dim);
-  pointer-events: none;
-  transition: transform 0.22s var(--ease), font-size 0.22s var(--ease), color 0.22s var(--ease);
-  transform-origin: 0 0;
-}
-.field input:focus,
-.field textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-  background: rgba(0, 0, 0, 0.42);
-}
-.field input:focus + label,
-.field textarea:focus + label,
-.field input:not(:placeholder-shown) + label,
-.field textarea:not(:placeholder-shown) + label {
-  transform: translateY(-9px) scale(0.76);
-  color: var(--accent);
-}
-
-.contact__submit {
-  align-self: flex-start;
-  margin-top: 6px;
-}
-.contact__sent {
-  font-family: var(--mono);
-  font-size: var(--fs-xs);
-  color: var(--accent);
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
-}
-.contact__sent.is-visible {
-  opacity: 1;
-  transform: none;
 }
 
 @media (max-width: 860px) {

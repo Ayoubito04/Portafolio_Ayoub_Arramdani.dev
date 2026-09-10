@@ -11,7 +11,7 @@ const STATS = [
 const FACTS = [
   { term: 'Formación', desc: 'DAM + Máster Full Stack en thePower' },
   { term: 'Ubicación', desc: 'Cocentaina / Alcoy · Remoto o híbrido' },
-  { term: 'Idiomas', desc: 'Español · Valenciano · Árabe · Inglés' },
+  { term: 'Idiomas', desc: 'Español · Valenciano · Inglés' },
 ]
 
 function About() {

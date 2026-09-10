@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import profilePhoto from '../assets/profile-photo.png'
 import Reveal from './Reveal'
 import TechIcon from './TechIcon'
+import { GITHUB, LINKEDIN } from '../config'
 
 const BADGES = ['React', 'Node.js', 'React Native', 'PostgreSQL']
 
@@ -83,21 +84,14 @@ function Hero() {
 
         <ul className="hero__social">
           <li>
-            <a href="https://github.com/Ayoubito04" target="_blank" rel="noopener noreferrer">
+            <a href={GITHUB} target="_blank" rel="noopener noreferrer">
               GitHub
             </a>
           </li>
           <li>
-            <a
-              href="https://www.linkedin.com/in/ayoub-arramdani-b49b64311/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer">
               LinkedIn
             </a>
-          </li>
-          <li>
-            <a href="#contacto">Email</a>
           </li>
         </ul>
       </Reveal>

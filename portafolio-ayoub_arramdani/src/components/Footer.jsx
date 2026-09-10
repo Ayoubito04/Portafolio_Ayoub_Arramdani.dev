@@ -1,3 +1,5 @@
+import { GITHUB, LINKEDIN } from '../config'
+
 function Footer() {
   return (
     <footer className="footer">
@@ -11,16 +13,12 @@ function Footer() {
 
         <ul className="footer__social">
           <li>
-            <a href="https://github.com/Ayoubito04" target="_blank" rel="noopener noreferrer">
+            <a href={GITHUB} target="_blank" rel="noopener noreferrer">
               GitHub
             </a>
           </li>
           <li>
-            <a
-              href="https://www.linkedin.com/in/ayoub-arramdani-b49b64311/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={LINKEDIN} target="_blank" rel="noopener noreferrer">
               LinkedIn
             </a>
           </li>
