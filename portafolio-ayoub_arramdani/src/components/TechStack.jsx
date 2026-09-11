@@ -7,14 +7,28 @@ import { techColorRgb } from '../techIcons'
 const CATEGORIES = [
   {
     name: 'Frontend',
-    note: 'Interfaz web y móvil',
+    note: 'Interfaz web',
     items: [
       { name: 'React', desc: 'Librería UI', docs: 'https://react.dev' },
-      { name: 'React Native', desc: 'Apps móviles', docs: 'https://reactnative.dev/docs/getting-started' },
       { name: 'JavaScript', desc: 'Lenguaje base', docs: 'https://developer.mozilla.org/docs/Web/JavaScript' },
       { name: 'HTML', desc: 'Estructura', docs: 'https://developer.mozilla.org/docs/Web/HTML' },
       { name: 'CSS', desc: 'Estilos', docs: 'https://developer.mozilla.org/docs/Web/CSS' },
       { name: 'Vite', desc: 'Build tool', docs: 'https://vite.dev' },
+    ],
+  },
+  {
+    name: 'Móvil',
+    note: 'Apps para Android e iOS',
+    items: [
+      { name: 'React Native', desc: 'Apps multiplataforma', docs: 'https://reactnative.dev/docs/getting-started' },
+      { name: 'Flutter', desc: 'SDK multiplataforma', docs: 'https://docs.flutter.dev' },
+      { name: 'Dart', desc: 'Lenguaje de Flutter', docs: 'https://dart.dev/guides' },
+      { name: 'Kotlin', desc: 'Lenguaje Android', docs: 'https://kotlinlang.org/docs/home.html' },
+      {
+        name: 'XML',
+        desc: 'Layouts Android',
+        docs: 'https://developer.android.com/develop/ui/views/layout/declaring-layout',
+      },
     ],
   },
   {
@@ -23,6 +37,7 @@ const CATEGORIES = [
     items: [
       { name: 'Node.js', desc: 'Runtime JS', docs: 'https://nodejs.org/docs/latest/api/' },
       { name: 'Express', desc: 'Framework HTTP', docs: 'https://expressjs.com/' },
+      { name: 'C#', desc: 'Lenguaje .NET', docs: 'https://learn.microsoft.com/dotnet/csharp/' },
       { name: '.NET', desc: 'Plataforma C#', docs: 'https://learn.microsoft.com/dotnet/' },
       { name: 'Java', desc: 'Lenguaje JVM', docs: 'https://docs.oracle.com/en/java/' },
       { name: 'JWT', desc: 'Autenticación', docs: 'https://jwt.io/introduction' },
@@ -45,6 +60,12 @@ const CATEGORIES = [
       { name: 'Git', desc: 'Versionado', docs: 'https://git-scm.com/doc' },
       { name: 'GitLab', desc: 'Repos y CI', docs: 'https://docs.gitlab.com/' },
       { name: 'Cloudinary', desc: 'Imágenes', docs: 'https://cloudinary.com/documentation' },
+      { name: 'Vercel', desc: 'Deploy frontend', docs: 'https://vercel.com/docs' },
+      { name: 'Render', desc: 'Deploy backend', docs: 'https://render.com/docs' },
+      { name: 'Expo Go', desc: 'Pruebas en móvil', docs: 'https://docs.expo.dev/get-started/set-up-your-environment/' },
+      { name: 'Visual Studio Code', desc: 'Editor de código', docs: 'https://code.visualstudio.com/docs' },
+      { name: 'Android Studio', desc: 'IDE Android', docs: 'https://developer.android.com/studio/intro' },
+      { name: 'IntelliJ IDEA', desc: 'IDE Java y Kotlin', docs: 'https://www.jetbrains.com/help/idea/getting-started.html' },
     ],
   },
 ]

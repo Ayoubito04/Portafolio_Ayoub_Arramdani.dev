@@ -21,11 +21,24 @@ export const ICONS = {
   Cloudinary: { slug: 'cloudinary', color: '3448C5' },
   // El icono de Expo es casi negro: se fuerza a blanco para el fondo oscuro.
   'Expo Go': { slug: 'expo', color: 'ffffff' },
+  // Los azules de marca de Flutter (02569B), Dart (0175C2) y XML (005FAD) son
+  // demasiado oscuros sobre el fondo de la web: se usan los tonos claros de sus
+  // logos (y blanco en XML, que no tiene variante clara).
+  Flutter: { slug: 'flutter', color: '54C5F8' },
+  Dart: { slug: 'dart', color: '00D2B8' },
+  Kotlin: { slug: 'kotlin', color: '7F52FF' },
+  XML: { slug: 'xml', color: 'ffffff' },
   Supabase: { slug: 'supabase', color: '3FCF8E' },
   Render: { slug: 'render', color: '46E3B7' },
   'Google OAuth': { slug: 'google', color: '4285F4' },
-  // Nota: "SQL Server" no tiene icono en Simple Icons (Microsoft retiró varias
-  // marcas), así que se muestra solo con su nombre.
+  // Vercel e IntelliJ IDEA son negros en Simple Icons: en blanco para el fondo.
+  Vercel: { slug: 'vercel', color: 'ffffff' },
+  'IntelliJ IDEA': { slug: 'intellijidea', color: 'ffffff' },
+  'Android Studio': { slug: 'androidstudio', color: '3DDC84' },
+  // Nota: "SQL Server", "Visual Studio Code" y "C#" no tienen icono en Simple
+  // Icons (Microsoft retiró varias marcas), así que se muestran solo con su
+  // nombre. Para C# no se reutiliza el icono de .NET: saldrían dos tarjetas
+  // seguidas con el mismo logo morado y parecerían duplicadas.
 }
 
 /**
