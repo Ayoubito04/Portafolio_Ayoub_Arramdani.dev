@@ -1,13 +1,18 @@
 import { useState } from 'react'
 import Reveal from './Reveal'
 import SectionHeading from './SectionHeading'
+import useLanguage from '../hooks/useLanguage'
 import useSpotlight from '../hooks/useSpotlight'
 import { EMAIL, GITHUB, GMAIL_COMPOSE, LINKEDIN, MAILTO } from '../config'
 
 const CHANNELS = [
-  { label: 'LinkedIn', value: '/in/ayoub-arramdani', url: LINKEDIN },
-  { label: 'GitHub', value: '@Ayoubito04', url: GITHUB },
-  { label: 'Ubicación', value: 'Cocentaina / Alcoy · Comunidad Valenciana' },
+  { id: 'linkedin', label: 'LinkedIn', value: '/in/ayoub-arramdani', url: LINKEDIN },
+  { id: 'github', label: 'GitHub', value: '@Ayoubito04', url: GITHUB },
+  {
+    id: 'location',
+    label: { es: 'Ubicación', en: 'Location' },
+    value: { es: 'Cocentaina / Alcoy · Comunidad Valenciana', en: 'Cocentaina / Alcoy · Valencian Community' },
+  },
 ]
 
 /**
@@ -17,6 +22,7 @@ const CHANNELS = [
  */
 function EmailBlock({ onSpotlight }) {
   const [copied, setCopied] = useState(false)
+  const { t } = useLanguage()
 
   async function copyEmail() {
     try {
@@ -32,7 +38,7 @@ function EmailBlock({ onSpotlight }) {
 
   return (
     <div className="contact-email" onMouseMove={onSpotlight}>
-      <span className="contact-channel__label">Escríbeme a</span>
+      <span className="contact-channel__label">{t({ es: 'Escríbeme a', en: 'Email me at' })}</span>
 
       <a id="contact-email-address" href={MAILTO} className="contact-email__address">
         {EMAIL}
@@ -40,10 +46,10 @@ function EmailBlock({ onSpotlight }) {
 
       <div className="contact-email__actions">
         <button type="button" className="contact-email__btn" onClick={copyEmail}>
-          {copied ? '✓ Copiado' : 'Copiar dirección'}
+          {copied ? t({ es: '✓ Copiado', en: '✓ Copied' }) : t({ es: 'Copiar dirección', en: 'Copy address' })}
         </button>
         <a href={GMAIL_COMPOSE} target="_blank" rel="noopener noreferrer" className="contact-email__btn">
-          Abrir en Gmail ↗
+          {t({ es: 'Abrir en Gmail ↗', en: 'Open in Gmail ↗' })}
         </a>
       </div>
     </div>
@@ -52,19 +58,29 @@ function EmailBlock({ onSpotlight }) {
 
 function Contact() {
   const onSpotlight = useSpotlight()
+  const { t } = useLanguage()
 
   return (
     <section id="contacto" className="contact">
-      <SectionHeading index="06" title="Contacto" subtitle="Hablemos de tu equipo o tu proyecto" />
+      <SectionHeading
+        index="06"
+        title={t({ es: 'Contacto', en: 'Contact' })}
+        subtitle={t({ es: 'Hablemos de tu equipo o tu proyecto', en: "Let's talk about your team or your project" })}
+      />
 
       <div className="contact__grid">
         <Reveal as="div" className="contact__intro">
           <p className="contact__lead">
-            ¿Tienes un proyecto en mente o quieres saber más sobre mi trabajo? Escríbeme y te responderé lo antes
-            posible.
+            {t({
+              es: '¿Tienes un proyecto en mente o quieres saber más sobre mi trabajo? Escríbeme y te responderé lo antes posible.',
+              en: "Have a project in mind or want to know more about my work? Write to me and I'll get back to you as soon as possible.",
+            })}
           </p>
           <p className="contact__note">
-            Estoy disponible para incorporarme a un equipo como desarrollador Full Stack, en remoto o híbrido.
+            {t({
+              es: 'Estoy disponible para incorporarme a un equipo como desarrollador Full Stack, en remoto o híbrido.',
+              en: "I'm available to join a team as a Full Stack developer, remote or hybrid.",
+            })}
           </p>
         </Reveal>
 
@@ -73,15 +89,15 @@ function Contact() {
 
           <ul className="contact__channels">
             {CHANNELS.map((channel) => (
-              <li key={channel.label} className="contact-channel" onMouseMove={onSpotlight}>
-                <span className="contact-channel__label">{channel.label}</span>
+              <li key={channel.id} className="contact-channel" onMouseMove={onSpotlight}>
+                <span className="contact-channel__label">{t(channel.label)}</span>
                 {channel.url ? (
                   <a href={channel.url} target="_blank" rel="noopener noreferrer" className="contact-channel__value">
                     {channel.value}
                     <span aria-hidden="true">↗</span>
                   </a>
                 ) : (
-                  <span className="contact-channel__value">{channel.value}</span>
+                  <span className="contact-channel__value">{t(channel.value)}</span>
                 )}
               </li>
             ))}

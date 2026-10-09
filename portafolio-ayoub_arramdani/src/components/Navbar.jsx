@@ -1,22 +1,51 @@
 import { useEffect, useState } from 'react'
 import useActiveSection from '../hooks/useActiveSection'
+import useLanguage from '../hooks/useLanguage'
+import { LANGUAGES } from '../i18n/LanguageContext'
 
 const LINKS = [
-  { href: '#inicio', label: 'Inicio' },
-  { href: '#sobre-mi', label: 'Sobre mí' },
-  { href: '#habilidades', label: 'Habilidades' },
-  { href: '#experiencia', label: 'Experiencia' },
-  { href: '#tecnologias', label: 'Tecnologías' },
-  { href: '#proyectos', label: 'Proyectos' },
-  { href: '#contacto', label: 'Contacto' },
+  { href: '#inicio', label: { es: 'Inicio', en: 'Home' } },
+  { href: '#sobre-mi', label: { es: 'Sobre mí', en: 'About' } },
+  { href: '#habilidades', label: { es: 'Habilidades', en: 'Skills' } },
+  { href: '#experiencia', label: { es: 'Experiencia', en: 'Experience' } },
+  { href: '#tecnologias', label: { es: 'Tecnologías', en: 'Tech stack' } },
+  { href: '#proyectos', label: { es: 'Proyectos', en: 'Projects' } },
+  { href: '#contacto', label: { es: 'Contacto', en: 'Contact' } },
 ]
 
 const SECTION_IDS = LINKS.map((link) => link.href.slice(1))
+
+/** Nombre completo de cada idioma, para lectores de pantalla. */
+const LANGUAGE_NAMES = { es: 'Español', en: 'English' }
+
+/** Selector ES / EN. Cada idioma se anuncia en su propio idioma. */
+function LanguageSwitch() {
+  const { lang, setLang, t } = useLanguage()
+
+  return (
+    <div className="lang-switch" role="group" aria-label={t({ es: 'Idioma', en: 'Language' })}>
+      {LANGUAGES.map((code) => (
+        <button
+          key={code}
+          type="button"
+          lang={code}
+          className={`lang-switch__btn${lang === code ? ' is-active' : ''}`}
+          aria-pressed={lang === code}
+          aria-label={LANGUAGE_NAMES[code]}
+          onClick={() => setLang(code)}
+        >
+          {code.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  )
+}
 
 function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const active = useActiveSection(SECTION_IDS)
+  const { t } = useLanguage()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -52,26 +81,31 @@ function Navbar() {
                   className={active === link.href.slice(1) ? 'is-active' : ''}
                   onClick={() => setOpen(false)}
                 >
-                  {link.label}
+                  {t(link.label)}
                 </a>
               </li>
             ))}
           </ul>
           <a href="#contacto" className="btn btn--accent navbar__cta" onClick={() => setOpen(false)}>
-            Hablemos
+            {t({ es: 'Hablemos', en: "Let's talk" })}
           </a>
         </nav>
 
-        <button
-          type="button"
-          className={`navbar__toggle${open ? ' is-open' : ''}`}
-          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span />
-          <span />
-        </button>
+        {/* Fuera del <nav>: en móvil el selector sigue visible sin abrir el menú. */}
+        <div className="navbar__actions">
+          <LanguageSwitch />
+
+          <button
+            type="button"
+            className={`navbar__toggle${open ? ' is-open' : ''}`}
+            aria-label={open ? t({ es: 'Cerrar menú', en: 'Close menu' }) : t({ es: 'Abrir menú', en: 'Open menu' })}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span />
+            <span />
+          </button>
+        </div>
       </div>
     </header>
   )

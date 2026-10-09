@@ -391,6 +391,48 @@ section {
   padding: 10px 20px;
 }
 
+/* Por encima del menú móvil (position: fixed) para poder cerrarlo y cambiar
+   de idioma con el menú abierto. */
+.navbar__actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lang-switch {
+  display: flex;
+  padding: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+}
+.lang-switch__btn {
+  padding: 6px 10px;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.lang-switch__btn:hover {
+  color: var(--text);
+}
+.lang-switch__btn.is-active {
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+.lang-switch__btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .navbar__toggle {
   display: none;
   flex-direction: column;

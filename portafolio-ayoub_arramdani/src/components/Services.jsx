@@ -1,5 +1,6 @@
 import Reveal from './Reveal'
 import SectionHeading from './SectionHeading'
+import useLanguage from '../hooks/useLanguage'
 import useSpotlight from '../hooks/useSpotlight'
 
 /* Iconos de línea dibujados a mano para no depender de una librería externa. */
@@ -14,49 +15,63 @@ const ICONS = {
 const SERVICES = [
   {
     icon: 'frontend',
-    title: 'Desarrollo Frontend',
-    desc: 'Interfaces con React y React Native para web y móvil.',
+    title: { es: 'Desarrollo Frontend', en: 'Frontend Development' },
+    desc: {
+      es: 'Interfaces con React y React Native para web y móvil.',
+      en: 'Interfaces with React and React Native for web and mobile.',
+    },
     tags: ['React', 'React Native', 'Vite'],
     wide: true,
   },
   {
     icon: 'backend',
-    title: 'Desarrollo Backend',
-    desc: 'APIs REST con Node.js, Express y también .NET.',
+    title: { es: 'Desarrollo Backend', en: 'Backend Development' },
+    desc: {
+      es: 'APIs REST con Node.js, Express y también .NET.',
+      en: 'REST APIs with Node.js, Express and .NET as well.',
+    },
     tags: ['Node.js', 'Express', '.NET'],
   },
   {
     icon: 'data',
-    title: 'Bases de datos',
-    desc: 'Modelado y consultas con PostgreSQL, MySQL y Prisma ORM.',
+    title: { es: 'Bases de datos', en: 'Databases' },
+    desc: {
+      es: 'Modelado y consultas con PostgreSQL, MySQL y Prisma ORM.',
+      en: 'Data modeling and queries with PostgreSQL, MySQL and Prisma ORM.',
+    },
     tags: ['PostgreSQL', 'MySQL', 'Prisma'],
   },
   {
     icon: 'auth',
-    title: 'Autenticación y seguridad',
-    desc: 'Login y rutas protegidas con JWT.',
+    title: { es: 'Autenticación y seguridad', en: 'Authentication & security' },
+    desc: { es: 'Login y rutas protegidas con JWT.', en: 'Login and protected routes with JWT.' },
     tags: ['JWT', 'RBAC'],
   },
   {
     icon: 'git',
-    title: 'Control de versiones',
-    desc: 'Trabajo en equipo con Git y GitLab.',
+    title: { es: 'Control de versiones', en: 'Version control' },
+    desc: { es: 'Trabajo en equipo con Git y GitLab.', en: 'Teamwork with Git and GitLab.' },
     tags: ['Git', 'GitLab'],
   },
 ]
 
 function Services() {
   const onSpotlight = useSpotlight()
+  const { t } = useLanguage()
 
   return (
     <section id="habilidades" className="services">
-      <SectionHeading index="02" title="Qué hago" subtitle="Las piezas que puedo cubrir en un equipo" />
+      <SectionHeading
+        index="02"
+        title={t({ es: 'Qué hago', en: 'What I do' })}
+        subtitle={t({ es: 'Las piezas que puedo cubrir en un equipo', en: 'The pieces I can cover in a team' })}
+      />
 
       <ul className="services__grid">
         {SERVICES.map((service, i) => (
           <Reveal
             as="li"
-            key={service.title}
+            key={service.icon}
             className={`service-card${service.wide ? ' service-card--wide' : ''}`}
             delay={i * 80}
             onMouseMove={onSpotlight}
@@ -69,8 +84,8 @@ function Services() {
               </svg>
             </span>
 
-            <h3>{service.title}</h3>
-            <p>{service.desc}</p>
+            <h3>{t(service.title)}</h3>
+            <p>{t(service.desc)}</p>
 
             <ul className="service-card__tags">
               {service.tags.map((tag) => (

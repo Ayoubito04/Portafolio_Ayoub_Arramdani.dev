@@ -1,6 +1,9 @@
+import useLanguage from '../hooks/useLanguage'
 import { GITHUB, LINKEDIN } from '../config'
 
 function Footer() {
+  const { t } = useLanguage()
+
   return (
     <footer className="footer">
       <div className="footer__inner">
@@ -23,13 +26,14 @@ function Footer() {
             </a>
           </li>
           <li>
-            <a href="#inicio">Volver arriba ↑</a>
+            <a href="#inicio">{t({ es: 'Volver arriba ↑', en: 'Back to top ↑' })}</a>
           </li>
         </ul>
       </div>
 
       <p className="footer__legal">
-        &copy; {new Date().getFullYear()} Ayoub Arramdani. Todos los derechos reservados.
+        &copy; {new Date().getFullYear()} Ayoub Arramdani.{' '}
+        {t({ es: 'Todos los derechos reservados.', en: 'All rights reserved.' })}
       </p>
     </footer>
   )
