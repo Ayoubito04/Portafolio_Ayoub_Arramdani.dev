@@ -1592,6 +1592,19 @@ section {
   text-transform: uppercase;
   color: var(--accent);
 }
+.project-showcase__status {
+  align-self: flex-start;
+  padding: 5px 12px;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: var(--radius-pill);
+  background: rgba(251, 191, 36, 0.1);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fbbf24;
+}
 .project-showcase__body h3 {
   font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
   font-weight: 700;

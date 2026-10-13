@@ -53,7 +53,17 @@ const CATEGORIES = [
     note: { es: 'APIs y lógica de servidor', en: 'APIs and server logic' },
     items: [
       { name: 'Node.js', desc: { es: 'Runtime JS', en: 'JS runtime' }, docs: 'https://nodejs.org/docs/latest/api/' },
+      {
+        name: 'TypeScript',
+        desc: { es: 'Lenguaje tipado para backend', en: 'Typed language for backend' },
+        docs: 'https://www.typescriptlang.org/docs/',
+      },
       { name: 'Express', desc: { es: 'Framework HTTP', en: 'HTTP framework' }, docs: 'https://expressjs.com/' },
+      {
+        name: 'Docker',
+        desc: { es: 'Contenedores para desplegar el servidor', en: 'Containers for deploying the server' },
+        docs: 'https://docs.docker.com/',
+      },
       {
         name: 'C#',
         desc: { es: 'Lenguaje .NET', en: '.NET language' },

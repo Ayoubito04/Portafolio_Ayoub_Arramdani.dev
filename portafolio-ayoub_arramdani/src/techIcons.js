@@ -9,6 +9,8 @@ export const ICONS = {
   PostgreSQL: { slug: 'postgresql', color: '4169E1' },
   Vite: { slug: 'vite', color: '646CFF' },
   JavaScript: { slug: 'javascript', color: 'F7DF1E' },
+  TypeScript: { slug: 'typescript', color: '3178C6' },
+  Docker: { slug: 'docker', color: '2496ED' },
   // Simple Icons renombró "css3" a "css"; el slug antiguo devuelve 404.
   CSS: { slug: 'css', color: '1572B6' },
   HTML: { slug: 'html5', color: 'E34F26' },

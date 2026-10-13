@@ -1,5 +1,6 @@
 import bytestoreCover from '../assets/bytestore-cover.png'
 import gofightLogo from '../assets/GF Boxing Pulse Logo.png'
+import jin1stepLogo from '../assets/Logo J1S.png'
 import Reveal from './Reveal'
 import SectionHeading from './SectionHeading'
 import TechIcon from './TechIcon'
@@ -7,6 +8,40 @@ import useLanguage from '../hooks/useLanguage'
 import useSpotlight from '../hooks/useSpotlight'
 
 const PROJECTS = [
+  {
+    title: 'JIn1Step',
+    kind: { es: 'Plataforma web y móvil', en: 'Web and mobile platform' },
+    year: '2026',
+    status: { es: 'En proceso', en: 'In progress' },
+    shot: 'logo',
+    tint: 'rgba(56, 189, 248, 0.4)',
+    desc: {
+      es: 'Plataforma de empleo que conecta candidatos y reclutadores. Analiza el CV, calcula la compatibilidad con las ofertas y permite automatizar las postulaciones mediante un autopiloto.',
+      en: 'A job platform connecting candidates and recruiters. It analyzes CVs, calculates how well they match job listings, and can automate applications through an autopilot.',
+    },
+    features: {
+      es: [
+        'Perfiles de candidato, reclutador y administración',
+        'Análisis de CV y detección de habilidades',
+        'Puntuación de compatibilidad entre candidatos y ofertas',
+        'Autopiloto configurable para enviar postulaciones',
+      ],
+      en: [
+        'Candidate, recruiter, and administrator profiles',
+        'CV analysis and skill detection',
+        'Compatibility scoring between candidates and jobs',
+        'Configurable autopilot for submitting applications',
+      ],
+    },
+    tags: ['Flutter', 'Dart', 'Node.js', 'TypeScript', 'Express', 'PostgreSQL', 'Prisma', 'Docker'],
+    cover: jin1stepLogo,
+    links: [
+      {
+        label: { es: 'Ver repositorio', en: 'View repository' },
+        url: 'https://github.com/Ayoubito04/JIn1step',
+      },
+    ],
+  },
   {
     title: 'Lampreas Violeta',
     kind: { es: 'App de escritorio · Proyecto DAM', en: 'Desktop app · DAM project' },
@@ -191,6 +226,7 @@ function ProjectShowcase({ project, index, flip, onSpotlight }) {
         </div>
 
         {project.badge && <span className="project-showcase__badge">★ {t(project.badge)}</span>}
+        {project.status && <span className="project-showcase__status">{t(project.status)}</span>}
 
         <h3>{project.title}</h3>
         <p className="project-showcase__desc">{t(project.desc)}</p>
