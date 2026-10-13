@@ -82,6 +82,22 @@ function Contact() {
               en: "I'm available to join a team as a Full Stack developer, remote or hybrid.",
             })}
           </p>
+          <div className="contact-email__actions">
+            <a
+              href="/CV_Ayoub_Arramdani_Full-Stack_ATS_ES.pdf"
+              download="CV_Ayoub_Arramdani_ES.pdf"
+              className="contact-email__btn"
+            >
+              {t({ es: 'Descargar CV (español)', en: 'Download CV (Spanish)' })}
+            </a>
+            <a
+              href="/CV_Ayoub_Arramdani_Full-Stack_ATS_EN.pdf"
+              download="CV_Ayoub_Arramdani_EN.pdf"
+              className="contact-email__btn"
+            >
+              {t({ es: 'Descargar CV (inglés)', en: 'Download CV (English)' })}
+            </a>
+          </div>
         </Reveal>
 
         <Reveal as="div" className="contact__ways" delay={120}>
